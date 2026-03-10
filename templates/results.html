@@ -13,16 +13,38 @@
 <pre>{{ code }}</pre>
 
 <h2>Findings</h2>
+    {% if findings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Pattern</th>
+                    <th>Category</th>
+                    <th>Severity</th>
+                    <th>Title</th>
+                    <th>Snippet</th>
+                    <th>Explanation</th>
+                    <th>Line</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for finding in findings %}
+                <tr>
+                    <!-- Access dictionary values using dot notation or bracket syntax -->
+                    <td>{{ finding.pattern }}</td>
+                    <td>{{ finding.category }}</td>
+                    <td>{{ finding.severity }}</td>
+                    <td>{{ finding.title }}</td>
+                    <td>{{ finding.snippet }}</td>
+                    <td>{{ finding.explanation }}</td>
+                    <td>{{ finding.line }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-{% if findings %}
-    <ul>
-        {% for finding in findings %}
-            <li>{{ finding.title }} - {{ finding.severity }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No findings yet.</p>
-{% endif %}
+    {% else %}
+        <p>No findings yet.</p>
+    {% endif %}
 
 <a href="/">Analyze another snippet</a>
 

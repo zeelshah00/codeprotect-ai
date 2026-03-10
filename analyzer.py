@@ -1,6 +1,7 @@
 import csv
 
-#Load from CSV
+
+# Load from CSV
 def load_vulnerabilities():
     vuln = []
 
@@ -13,22 +14,23 @@ def load_vulnerabilities():
     return vuln
 
 
-
 def analyze_code(code):
-        vuln = load_vulnerabilities()
-        findings = []
-        lines = code.split("\n")
-        for line_number, line in enumerate(lines):
-            for pattern in vuln:
-                if pattern["pattern"] in line: 
-                    finding = {
-                        "title": pattern["title"],
-                        "severity": pattern["severity"],
-                        "line": line_number,
-                        "explanation": pattern["explanation"]
-                    }
+    vuln = load_vulnerabilities()
+    findings = []
+    lines = code.split("\n")
+    for line_number, line in enumerate(lines):
+        for pattern in vuln:
+            if pattern["pattern"] in line:
+                finding = {
+                    "pattern": pattern["pattern"],
+                    "category": pattern["category"],
+                    "title": pattern["title"],
+                    "severity": pattern["severity"],
+                    "line": line_number,
+                    "explanation": pattern["explanation"],
+                    "snippet": line,
+                }
 
-                    findings.append(finding)
-                      
-        return findings
+                findings.append(finding)
 
+    return findings
