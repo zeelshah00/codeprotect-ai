@@ -1,0 +1,7 @@
+pattern,title,severity,explanation
+eval(,Use of eval(),High,eval() executes arbitrary code and can lead to remote code execution.
+exec(,Use of exec(),High,exec() executes dynamic code which may be unsafe.
+shell=True,Subprocess shell usage,High,Using shell=True may allow command injection.
+api_key =,Hardcoded API key,Medium,Hardcoded secrets should not be stored in source code.
+password =,Hardcoded password,Medium,Hardcoded credentials can expose sensitive access.
+innerHTML =,Potential XSS via innerHTML,Medium,innerHTML can allow cross-site scripting if user input is inserted.

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from analyzer import analyze_code
 
 app = Flask(__name__)
 
@@ -13,11 +14,12 @@ def analyze():
     code = request.form.get("code", "")
     language = request.form.get("language", "python")
 
-    findings = []
+    findings = analyze_code(code)
 
+    print(findings)
     return render_template(
-        "results.html", code=code, language=language, findings=findings
-    )
+        "results.html", code=code, language=language, findings=findings)
+    
 
 
 if __name__ == "__main__":
