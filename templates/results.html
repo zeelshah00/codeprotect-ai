@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Results</title>
+</head>
+<body>
+
+<h1>Analysis Results</h1>
+
+<p><strong>Language:</strong> {{ language }}</p>
+
+<h2>Submitted Code</h2>
+<pre>{{ code }}</pre>
+
+<h2>Findings</h2>
+
+{% if findings %}
+    <ul>
+        {% for finding in findings %}
+            <li>{{ finding.title }} - {{ finding.severity }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No findings yet.</p>
+{% endif %}
+
+<a href="/">Analyze another snippet</a>
+
+</body>
+</html>
