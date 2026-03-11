@@ -1,53 +1,94 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Results</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Analysis Results</h1>
+{% block content %}
 
-<p><strong>Language:</strong> {{ language }}</p>
+<h2>Analysis Results</h2>
 
-<h2>Submitted Code</h2>
-<pre>{{ code }}</pre>
+<div class="mb-4">
 
-<h2>Findings</h2>
-    {% if findings %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Pattern</th>
-                    <th>Category</th>
-                    <th>Severity</th>
-                    <th>Title</th>
-                    <th>Snippet</th>
-                    <th>Explanation</th>
-                    <th>Line</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for finding in findings %}
-                <tr>
-                    <!-- Access dictionary values using dot notation or bracket syntax -->
-                    <td>{{ finding.pattern }}</td>
-                    <td>{{ finding.category }}</td>
-                    <td>{{ finding.severity }}</td>
-                    <td>{{ finding.title }}</td>
-                    <td>{{ finding.snippet }}</td>
-                    <td>{{ finding.explanation }}</td>
-                    <td>{{ finding.line }}</td>
-                </tr>
+    <div class="alert 
+        {% if risk == 'High' %}alert-danger
+        {% elif risk == 'Medium' %}alert-warning
+        {% elif risk == 'Low' %}alert-secondary
+        {% else %}alert-success
+        {% endif %}" role="alert">
+
+        <h4 class="alert-heading">
+            {% if risk == "High" %}
+            🔴 High Risk Detected
+            {% elif risk == "Medium" %}
+            🟠 Medium Risk Detected
+            {% elif risk == "Low" %}
+            🟡 Low Risk Detected
+            {% else %}
+            🟢 No Security Issues Detected
+            {% endif %}
+        </h4>
+
+    <p class="mb-0">
+        {{ len_findings }} vulnerability findings discovered during analysis.
+    </p>
+
+    </div>
+
+</div>
+
+
+<div class="mb-4">
+    <strong>Language:</strong> {{ language }} <br>
+    <strong>Findings:</strong> {{ len_findings }} <br>
+    <strong>Overall Risk:</strong> 
+    <span class="badge 
+    {% if risk == 'High' %}bg-danger
+    {% elif risk == 'Medium' %}bg-warning
+    {% elif risk == 'Low' %}bg-secondary
+    {% else %}bg-success
+    {% endif %}">
+    {{ risk }}
+    </span>
+</div>
+
+<h4>Submitted Code</h4>
+<pre class="code-block">{{ code }}</pre>
+
+    <hr>
+
+        {% if findings %}
+
+            {% for finding in findings %}
+
+                <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                <h5 class="card-title">
+                {{ finding.title }}
+
+                <span class="badge 
+                {% if finding.severity == 'High' %}bg-danger
+                {% elif finding.severity == 'Medium' %}bg-warning
+                {% else %}bg-secondary
+                {% endif %}">
+                {{ finding.severity }} </span>
+
+                </h5>
+
+                <p><strong>Line:</strong> {{ finding.line }}</p>
+
+                <p><strong>Snippet:</strong></p>
+                <pre class="code-block">{{ finding.snippet }}</pre>
+
+                <p><strong>Explanation:</strong> {{ finding.explanation }}</p>
+
+                </div>
+
+                </div>
+
                 {% endfor %}
-            </tbody>
-        </table>
+        {% else %}
+            <p>No findings detected.</p>
+        {% endif %}
 
-    {% else %}
-        <p>No findings yet.</p>
-    {% endif %}
+<a href="/" class="btn btn-primary">Analyze Another</a>
 
-<a href="/">Analyze another snippet</a>
-<a href="/history">Review Historical Data</a>
-
-</body>
-</html>
+{% endblock %}

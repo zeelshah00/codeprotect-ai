@@ -1,0 +1,18 @@
+body {
+font-family: Arial, sans-serif;
+}
+
+.code-block {
+background: #f6f8fa;
+padding: 10px;
+border-radius: 5px;
+overflow-x: auto;
+}
+
+.card {
+border-left: 4px solid #dee2e6;
+}
+
+.alert-heading {
+font-weight: bold;
+}

@@ -17,8 +17,9 @@ def load_vulnerabilities():
 def analyze_code(code):
     vuln = load_vulnerabilities()
     findings = []
+    risk = "Safe"
     lines = code.split("\n")
-    for line_number, line in enumerate(lines):
+    for line_number, line in enumerate(lines, start=1):
         for pattern in vuln:
             if pattern["pattern"] in line:
                 finding = {
@@ -32,5 +33,17 @@ def analyze_code(code):
                 }
 
                 findings.append(finding)
+    
+    for finding in findings:
 
-    return findings
+        if finding["severity"] == "High":
+            risk = "High"
+            break
+
+        elif finding["severity"] == "Medium" and risk != "High":
+            risk = "Medium"
+
+        elif finding["severity"] == "Low" and risk == "Safe":
+            risk = "Low"
+                   
+    return findings, risk

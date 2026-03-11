@@ -15,11 +15,12 @@ def analyze():
     code = request.form.get("code", "")
     language = request.form.get("language", "python")
 
-    findings = analyze_code(code)
+    findings,risk = analyze_code(code)
+    len_findings = len(findings)
     historical_data(code, findings, language)
 
     return render_template(
-        "results.html", code=code, language=language, findings=findings)
+        "results.html", code=code, language=language, findings=findings, len_findings=len_findings, risk=risk)
 
 @app.route("/history", methods=["GET"])
 def history():
