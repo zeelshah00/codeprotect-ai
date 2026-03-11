@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History</title>
+</head>
+<body>
+
+<h1>History</h1>
+
+<h2>Historical Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Language</th>
+                    <th>Code</th>
+                    <th>Created at</th>
+                    <th>Title</th>
+                    <th>Severity</th>
+                    <th>Line</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for finding in history %}
+                <tr>
+                    <td>{{ finding[0] }}</td>
+                    <td>{{ finding[1] }}</td>
+                    <td>{{ finding[2] }}</td>
+                    <td>{{ finding[3] }}</td>
+                    <td>{{ finding[6] }}</td>
+                    <td>{{ finding[7] }}</td>
+                    <td>{{ finding[8] }}</td>
+                    <td>{{ finding[9] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+<a href="/">Go Home</a>
+
+</body>
+</html>

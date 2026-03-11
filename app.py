@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from analyzer import analyze_code
-from history import historical_data
+from history import historical_data, get_history
 
 app = Flask(__name__)
 
@@ -22,8 +22,10 @@ def analyze():
         "results.html", code=code, language=language, findings=findings)
 
 @app.route("/history", methods=["GET"])
-def history(): ##additional logic and inputs needed here to give to history.html so that it can process the page
-    return render_template("history.html")
+def history():
+    history = get_history()
+    print(history)
+    return render_template("history.html", history=history)
 
     
 
