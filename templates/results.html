@@ -15,13 +15,13 @@
 
         <h4 class="alert-heading">
             {% if risk == "High" %}
-            🔴 High Risk Detected
+                High Risk Detected
             {% elif risk == "Medium" %}
-            🟠 Medium Risk Detected
+                Medium Risk Detected
             {% elif risk == "Low" %}
-            🟡 Low Risk Detected
+                Low Risk Detected
             {% else %}
-            🟢 No Security Issues Detected
+                No Security Issues Detected
             {% endif %}
         </h4>
 
@@ -79,6 +79,9 @@
                 <pre class="code-block">{{ finding.snippet }}</pre>
 
                 <p><strong>Explanation:</strong> {{ finding.explanation }}</p>
+
+                <p><strong>AI Suggested Fix:</strong></p>
+                <pre class="code-block">{{ suggestion }}</pre>
 
                 </div>
 

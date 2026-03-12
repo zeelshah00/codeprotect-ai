@@ -33,7 +33,7 @@ def analyze_code(code):
                 }
 
                 findings.append(finding)
-    
+
     for finding in findings:
 
         if finding["severity"] == "High":
@@ -45,5 +45,5 @@ def analyze_code(code):
 
         elif finding["severity"] == "Low" and risk == "Safe":
             risk = "Low"
-                   
+
     return findings, risk

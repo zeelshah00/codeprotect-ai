@@ -7,46 +7,72 @@
 <table class="table table-striped">
 
 <thead>
-<tr>
-<th>ID</th>
-<th>Language</th>
-<th>Code</th>
-<th>Date</th>
-<th>Title</th>
-<th>Severity</th>
-<th>Line</th>
-<th>Explanation</th>
-</tr>
+    <tr>
+    <th>ID</th>
+    <th>Language</th>
+    <th>Code</th>
+    <th>Date</th>
+    <th>Title</th>
+    <th>Severity</th>
+    <th>Line</th>
+    <th>Explanation</th>
+    </tr>
 </thead>
 
 <tbody>
 
-{% for finding in history %}
+    {% for finding in history %}
 
-<tr>
-<td>{{ finding[0] }}</td>
-<td>{{ finding[1] }}</td>
-<td>{{ finding[2][:40] }}...</td>
-<td>{{ finding[3] }}</td>
-<td>{{ finding[6] }}</td>
+        <tr>
+        <td>{{ finding[0] }}</td>
+        <td>{{ finding[1] }}</td>
+        <td>{{ finding[2][:40] }}...</td>
+        <td>{{ finding[3] }}</td>
+        <td>{{ finding[6] }}</td>
 
-<td>
-<span class="badge
-{% if finding[7] == 'High' %}bg-danger
-{% elif finding[7] == 'Medium' %}bg-warning
-{% else %}bg-secondary
-{% endif %}">
-{{ finding[7] }}
-</span>
-</td>
+        <td>
+        <span class="badge
+        {% if finding[7] == 'High' %}bg-danger
+        {% elif finding[7] == 'Medium' %}bg-warning
+        {% else %}bg-secondary
+        {% endif %}">
+        {{ finding[7] }}
+        </span>
+        </td>
 
-<td>{{ finding[8] }}</td>
-<td>{{ finding[9] }}</td>
+        <td>{{ finding[8] }}</td>
+        <td>{{ finding[9] }}</td>
 
-</tr>
-{% endfor %}
+        </tr>
+
+    {% endfor %}
 
 </tbody>
 </table>
+
+<nav>
+    <ul class="pagination">
+
+    {% if page > 1 %}
+        <li class="page-item">
+        <a class="page-link" href="/history?page={{ page-1 }}">Previous</a>
+        </li>
+    {% endif %}
+
+    {% for p in range(1, total_pages + 1) %}
+        <li class="page-item {% if p == page %}active{% endif %}">
+        <a class="page-link" href="/history?page={{ p }}">{{ p }}</a>
+        </li>
+    {% endfor %}
+
+    {% if page < total_pages %}
+
+        <li class="page-item">
+        <a class="page-link" href="/history?page={{ page+1 }}">Next</a>
+        </li>
+    {% endif %}
+
+    </ul>
+</nav>
 
 {% endblock %}
